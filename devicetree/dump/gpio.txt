@@ -1,0 +1,21 @@
+GPIOs 0-31, platform/pinctrl, gpio0:
+ gpio-5   (                    |power               ) in  hi    
+ gpio-13  (                    |ep                  ) out hi    
+
+GPIOs 32-63, platform/pinctrl, gpio1:
+ gpio-35  (                    |vcc5v0_host         ) out hi    
+ gpio-45  (                    |vcc_phy             ) out hi    
+ gpio-46  (                    |vsel                ) out lo    
+ gpio-49  (                    |vsel                ) out lo    
+ gpio-52  (                    |gmac_wol_io         ) in  lo    
+ gpio-54  (                    |otg-vbus            ) out hi    
+
+GPIOs 64-95, platform/pinctrl, gpio2:
+
+GPIOs 96-127, platform/pinctrl, gpio3:
+ gpio-111 (                    |mdio-reset          ) out hi    
+
+GPIOs 128-159, platform/pinctrl, gpio4:
+ gpio-146 (                    |power-led           ) out hi    
+ gpio-153 (                    |dp-det              ) out hi    
+ gpio-156 (                    |hdmi-5v             ) out hi    
