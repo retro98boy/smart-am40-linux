@@ -2,13 +2,13 @@
 
 SoC为RK3399
 
-RAM为4GiB的DDR3，频率是1600MHz，这点可以从原版系统启动日志中看出：
+RAM为4GB的DDR3，频率是1600MHz，这点可以从原版系统启动日志中看出：
 
 ![boot-log-ddr](pictures/boot-log-ddr.png)
 
 Maskrom模式下使用的loader文件在[这里](https://github.com/retro98boy/tn3399-v3-linux/blob/master/tools/rk3399_loader_v1.30.130.bin)
 
-ROM为32GiB的eMMC
+ROM为32GB的eMMC
 
 # 主线U-Boot
 
@@ -46,7 +46,7 @@ RK3399支持PCIe 2.1，但是主线内核中设备树默认限制到PCIe gen1的
 
 # 视频输出
 
-前面板的物理视频接口HDMI，其本质是USB Type-C，使用Type-C的DP Alt Mode输出DP信号并被动转换成HDMI信号，走RK3399的VOP时可输出4K 60Hz的视频信号
+前面板的物理视频接口HDMI，其本质是USB Type-C，使用Type-C的DP Alt Mode输出DP信号并被动转换成HDMI信号，走RK3399的VOP Big时可输出4K 60Hz的视频信号
 
 要让RK3399将视频输出到Type-C，一般有专用的芯片来检测Type-C的连接情况。SMART AM40无此类芯片，且使用场景固定为输出DP信号，只需要知道什么时候该输出DP信号即可
 
