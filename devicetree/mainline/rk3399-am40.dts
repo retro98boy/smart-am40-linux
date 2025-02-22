@@ -159,10 +159,20 @@
 		vpd-super-speed;
 	};
 
-	sound {
-		compatible = "rockchip,rk3399-gru-sound";
-		rockchip,cpu = <&i2s2 &spdif>;
-		rockchip,codec = <&cdn_dp>;
+	dp-sound {
+		compatible = "simple-audio-card";
+		simple-audio-card,format = "i2s";
+		simple-audio-card,mclk-fs = <256>;
+		simple-audio-card,name = "dp-sound";
+
+		simple-audio-card,cpu {
+			// sound-dai = <&i2s2>;
+			sound-dai = <&spdif>;
+		};
+		simple-audio-card,codec {
+			// sound-dai = <&cdn_dp 0>;
+			sound-dai = <&cdn_dp 1>;
+		};
 	};
 };
 
