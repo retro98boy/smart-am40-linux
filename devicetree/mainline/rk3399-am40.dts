@@ -52,6 +52,20 @@
 		};
 	};
 
+	adc-keys {
+		compatible = "adc-keys";
+		io-channels = <&saradc 1>;
+		io-channel-names = "buttons";
+		keyup-threshold-microvolt = <1800000>;
+		poll-interval = <100>;
+
+		button-recovery {
+			label = "Recovery";
+			linux,code = <KEY_VENDOR>;
+			press-threshold-microvolt = <18000>;
+		};
+	};
+
 	vcc1v8_s0: regulator-vcc1v8-s0 {
 		compatible = "regulator-fixed";
 		regulator-name = "vcc1v8_s0";
@@ -577,7 +591,7 @@
 };
 
 &saradc {
-	vref-supply = <&vcc1v8_s0>;
+	vref-supply = <&vcca1v8>;
 	status = "okay";
 };
 
