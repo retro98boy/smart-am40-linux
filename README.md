@@ -46,7 +46,7 @@ RK3399支持PCIe 2.1，但是主线内核中设备树默认限制到PCIe gen1的
 
 # 视频输出
 
-前面板的物理视频接口HDMI，其本质是USB Type-C，使用Type-C的DP Alt Mode输出DP信号并被动转换成HDMI信号，走RK3399的VOP Big时可输出4K 60Hz的视频信号
+前面板的物理视频接口HDMI，其本质是USB Type-C，使用Type-C的DP Alt mode输出DP信号并转换成HDMI信号，走RK3399的VOP Big时可输出4K 60Hz的视频信号
 
 要让RK3399将视频输出到Type-C，一般有专用的芯片来检测Type-C的连接情况。SMART AM40无此类芯片，且使用场景固定为输出DP信号，只需要知道什么时候该输出DP信号即可
 
