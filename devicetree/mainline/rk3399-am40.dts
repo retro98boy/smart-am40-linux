@@ -131,13 +131,13 @@
 		regulator-max-microvolt = <3300000>;
 	};
 
-	hdmi_5v: regulator-hdmi-5v {
+	front_hdmi_5v: regulator-front-hdmi-5v {
 		compatible = "regulator-fixed";
 		enable-active-high;
 		gpio = <&gpio4 RK_PD4 GPIO_ACTIVE_HIGH>;
 		pinctrl-names = "default";
-		pinctrl-0 = <&hdmi_5v_en>;
-		regulator-name = "hdmi_5v";
+		pinctrl-0 = <&front_hdmi_5v_en>;
+		regulator-name = "front_hdmi_5v";
 		regulator-always-on;
 		regulator-boot-on;
 		regulator-min-microvolt = <5000000>;
@@ -525,7 +525,7 @@
 			rockchip,pins = <4 RK_PD1 RK_FUNC_GPIO &pcfg_input_pull_up>;
 		};
 
-		hdmi_5v_en: hdmi-5v-en {
+		front_hdmi_5v_en: front-hdmi-5v-en {
 			rockchip,pins = <4 RK_PD4 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
