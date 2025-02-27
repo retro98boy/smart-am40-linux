@@ -50,35 +50,7 @@ RK3399支持PCIe 2.1，但是主线内核中设备树默认限制到PCIe gen1的
 
 要让RK3399将视频输出到Type-C，一般有专用的芯片来检测Type-C的连接情况。SMART AM40无此类芯片，且使用场景固定为输出DP信号，只需要知道什么时候该输出DP信号即可
 
-[该补丁](https://github.com/armbian/build/blob/main/patch/kernel/archive/rockchip64-6.12/general-add-miniDP-virtual-extcon.patch)可添加一个extcon驱动，通过检测GPIO，来告知RK3399的cdn-dp驱动什么时候输出DP信号，但是补丁目前有个Bug：
+[该补丁](https://github.com/armbian/build/blob/main/patch/kernel/archive/rockchip64-6.12/general-add-miniDP-virtual-extcon.patch)可添加一个extcon驱动，通过检测GPIO，来告知RK3399的cdn-dp驱动什么时候输出DP信号，~~但是补丁目前有个Bug，`vpd->det_gpio = devm_gpiod_get_optional(dev, "det", GPIOD_OUT_LOW);`应为`vpd->det_gpio = devm_gpiod_get_optional(dev, "det", GPIOD_IN);`~~，Bug已修复，Armbian官方内核搭配本仓库设备树即可驱动前面板HDMI
 
-```
-vpd->det_gpio = devm_gpiod_get_optional(dev, "det", GPIOD_OUT_LOW);
-```
 
-应该为：
-
-```
-vpd->det_gpio = devm_gpiod_get_optional(dev, "det", GPIOD_IN);
-```
-
-本仓库提供修改的extcon驱动及DKMS包，只要使用本仓库的主线设备树，并通过DKMS安装上驱动即可使用前面板的HDMI
-
-将本仓库中的`extcon-usbc-virtual-pd2-0.0.1`上传到AM40的/usr/src，接着执行：
-
-```
-# 安装工具
-sudo apt install dkms linux-headers-current-rockchip64 gcc make
-
-# 将驱动纳入DKMS管理
-sudo dkms add extcon-usbc-virtual-pd2/0.0.1
-# 安装驱动
-sudo dkms autoinstall extcon-usbc-virtual-pd2/0.0.1
-# 加载驱动
-sudo depmod -a && sudo modprobe extcon-usbc-virtual-pd2
-
-# 如果不再需要可以卸载驱动
-sudo dkms remove extcon-usbc-virtual-pd2/0.0.1 && sudo rm -rf /usr/src/extcon-usbc-virtual-pd2-0.0.1
-```
-
-如果想要驱动在内核启动早期就被加载，可以将其添加到initramfs中，对于Armbian，只要在`/etc/initramfs-tools/modules`中添加一行`extcon-usbc-virtual-pd2`，然后执行`update-initramfs -u`即可
+如果前面板HDMI无信号输出，手动`modprobe extcon-usbc-virtual-pd`即可，推荐将其添加到initramfs中，对于Armbian，只要在`/etc/initramfs-tools/modules`中添加一行`extcon-usbc-virtual-pd`，然后执行`update-initramfs -u`即可
