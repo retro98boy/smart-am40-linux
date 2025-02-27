@@ -94,10 +94,10 @@ index 00000000..d3ccdf6f
 +CONFIG_ERRNO_STR=y
 diff --git a/dts/upstream/src/arm64/rockchip/rk3399-am40.dts b/dts/upstream/src/arm64/rockchip/rk3399-am40.dts
 new file mode 100644
-index 00000000..97bc3fc5
+index 00000000..d7188333
 --- /dev/null
 +++ b/dts/upstream/src/arm64/rockchip/rk3399-am40.dts
-@@ -0,0 +1,720 @@
+@@ -0,0 +1,743 @@
 +/dts-v1/;
 +
 +#include <dt-bindings/input/linux-event-codes.h>
@@ -150,6 +150,20 @@ index 00000000..97bc3fc5
 +			label = "pwr-btn";
 +			linux,code = <KEY_POWER>;
 +			wakeup-source;
++		};
++	};
++
++	adc-keys {
++		compatible = "adc-keys";
++		io-channels = <&saradc 1>;
++		io-channel-names = "buttons";
++		keyup-threshold-microvolt = <1800000>;
++		poll-interval = <100>;
++
++		button-recovery {
++			label = "Recovery";
++			linux,code = <KEY_VENDOR>;
++			press-threshold-microvolt = <18000>;
 +		};
 +	};
 +
@@ -218,13 +232,13 @@ index 00000000..97bc3fc5
 +		regulator-max-microvolt = <3300000>;
 +	};
 +
-+	hdmi_5v: regulator-hdmi-5v {
++	front_hdmi_5v: regulator-front-hdmi-5v {
 +		compatible = "regulator-fixed";
 +		enable-active-high;
 +		gpio = <&gpio4 RK_PD4 GPIO_ACTIVE_HIGH>;
 +		pinctrl-names = "default";
-+		pinctrl-0 = <&hdmi_5v_en>;
-+		regulator-name = "hdmi_5v";
++		pinctrl-0 = <&front_hdmi_5v_en>;
++		regulator-name = "front_hdmi_5v";
 +		regulator-always-on;
 +		regulator-boot-on;
 +		regulator-min-microvolt = <5000000>;
@@ -254,16 +268,26 @@ index 00000000..97bc3fc5
 +	};
 +
 +	virtual_pd: virtual-pd {
-+		compatible = "linux,extcon-usbc-virtual-pd2";
++		compatible = "linux,extcon-usbc-virtual-pd";
 +		det-gpios = <&gpio4 RK_PD1 GPIO_ACTIVE_LOW>;
 +		vpd-data-role = "display-port";
 +		vpd-super-speed;
 +	};
 +
-+	sound {
-+		compatible = "rockchip,rk3399-gru-sound";
-+		rockchip,cpu = <&i2s2 &spdif>;
-+		rockchip,codec = <&cdn_dp>;
++	dp-sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,format = "i2s";
++		simple-audio-card,mclk-fs = <256>;
++		simple-audio-card,name = "dp-sound";
++
++		simple-audio-card,cpu {
++			// sound-dai = <&i2s2>;
++			sound-dai = <&spdif>;
++		};
++		simple-audio-card,codec {
++			// sound-dai = <&cdn_dp 0>;
++			sound-dai = <&cdn_dp 1>;
++		};
 +	};
 +};
 +
@@ -424,8 +448,7 @@ index 00000000..97bc3fc5
 +				regulator-min-microvolt = <1800000>;
 +				regulator-max-microvolt = <1800000>;
 +				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <1800000>;
++					regulator-off-in-suspend;
 +				};
 +			};
 +
@@ -517,7 +540,7 @@ index 00000000..97bc3fc5
 +			vcc3v3_s0: SWITCH_REG2 {
 +				regulator-name = "vcc3v3_s0";
 +				regulator-state-mem {
-+					regulator-on-in-suspend;
++					regulator-off-in-suspend;
 +				};
 +			};
 +		};
@@ -600,10 +623,10 @@ index 00000000..97bc3fc5
 +
 +	display {
 +		dp-hpd {
-+			rockchip,pins = <4 RK_PD1 RK_FUNC_GPIO &pcfg_pull_up>;
++			rockchip,pins = <4 RK_PD1 RK_FUNC_GPIO &pcfg_input_pull_up>;
 +		};
 +
-+		hdmi_5v_en: hdmi-5v-en {
++		front_hdmi_5v_en: front-hdmi-5v-en {
 +			rockchip,pins = <4 RK_PD4 RK_FUNC_GPIO &pcfg_pull_none>;
 +		};
 +	};
@@ -669,7 +692,7 @@ index 00000000..97bc3fc5
 +};
 +
 +&saradc {
-+	vref-supply = <&vcc1v8_s0>;
++	vref-supply = <&vcca1v8>;
 +	status = "okay";
 +};
 +
