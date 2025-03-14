@@ -10,6 +10,10 @@ Maskrom模式下使用的loader文件在[这里](https://github.com/retro98boy/t
 
 ROM为32GB的eMMC
 
+# Maskrom短接点
+
+![maskrom-short](pictures/maskrom-short.png)
+
 # 主线U-Boot
 
 仓库提供主线U-Boot补丁，参考[此处](https://github.com/retro98boy/tn3399-v3-linux#%E7%BC%96%E8%AF%91%E4%B8%BB%E7%BA%BFu-boot)编译和使用
@@ -54,3 +58,5 @@ RK3399支持PCIe 2.1，但是主线内核中设备树默认限制到PCIe gen1的
 
 
 如果前面板HDMI无信号输出，手动`modprobe extcon-usbc-virtual-pd`即可，推荐将其添加到initramfs中，对于Armbian，只要在`/etc/initramfs-tools/modules`中添加一行`extcon-usbc-virtual-pd`，然后执行`update-initramfs -u`即可
+
+PS: 主线cdn DP驱动的工作需要名为dptx.bin的固件，应将其放在/lib/firmware/rockchip下。可在[armbian/firmware](https://github.com/armbian/firmware)下载该固件，Armbian系统镜像自带
