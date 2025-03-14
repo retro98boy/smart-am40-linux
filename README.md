@@ -60,3 +60,9 @@ RK3399支持PCIe 2.1，但是主线内核中设备树默认限制到PCIe gen1的
 如果前面板HDMI无信号输出，手动`modprobe extcon-usbc-virtual-pd`即可，推荐将其添加到initramfs中，对于Armbian，只要在`/etc/initramfs-tools/modules`中添加一行`extcon-usbc-virtual-pd`，然后执行`update-initramfs -u`即可
 
 PS: 主线cdn DP驱动的工作需要名为dptx.bin的固件，应将其放在/lib/firmware/rockchip下。可在[armbian/firmware](https://github.com/armbian/firmware)下载该固件，Armbian系统镜像自带
+
+# 其它固件
+
+[Batocera](https://github.com/retro98boy/batocera.linux)
+
+[OpenWrt](https://github.com/retro98boy/openwrt)
