@@ -94,10 +94,16 @@ index 00000000..d3ccdf6f
 +CONFIG_ERRNO_STR=y
 diff --git a/dts/upstream/src/arm64/rockchip/rk3399-am40.dts b/dts/upstream/src/arm64/rockchip/rk3399-am40.dts
 new file mode 100644
-index 00000000..d7188333
+index 00000000..2f8d1c6c
 --- /dev/null
 +++ b/dts/upstream/src/arm64/rockchip/rk3399-am40.dts
-@@ -0,0 +1,743 @@
+@@ -0,0 +1,749 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd.
++ * Copyright (c) 2025 retro98boy <retro98boy@qq.com>
++ */
++
 +/dts-v1/;
 +
 +#include <dt-bindings/input/linux-event-codes.h>
