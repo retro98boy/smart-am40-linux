@@ -94,10 +94,10 @@ index 00000000..d3ccdf6f
 +CONFIG_ERRNO_STR=y
 diff --git a/dts/upstream/src/arm64/rockchip/rk3399-am40.dts b/dts/upstream/src/arm64/rockchip/rk3399-am40.dts
 new file mode 100644
-index 00000000..490f5bd1
+index 00000000..184b8d08
 --- /dev/null
 +++ b/dts/upstream/src/arm64/rockchip/rk3399-am40.dts
-@@ -0,0 +1,754 @@
+@@ -0,0 +1,756 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
 + * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd.
@@ -280,6 +280,8 @@ index 00000000..490f5bd1
 +
 +	virtual_pd: virtual-pd {
 +		compatible = "linux,extcon-usbc-virtual-pd";
++		pinctrl-names = "default";
++		pinctrl-0 = <&dp_hpd>;
 +		det-gpios = <&gpio4 RK_PD1 GPIO_ACTIVE_LOW>;
 +		vpd-data-role = "display-port";
 +		vpd-super-speed;
@@ -633,7 +635,7 @@ index 00000000..490f5bd1
 +	};
 +
 +	display {
-+		dp-hpd {
++		dp_hpd: dp-hpd {
 +			rockchip,pins = <4 RK_PD1 RK_FUNC_GPIO &pcfg_input_pull_up>;
 +		};
 +
