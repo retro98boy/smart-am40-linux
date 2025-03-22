@@ -18,6 +18,11 @@
 		ethernet0 = &gmac;
 		mmc0 = &sdhci;
 		mmc1 = &sdmmc;
+		/*
+		 * The rk808 circuit design on this board does not have the ability to maintain real-time time after a power outage.
+		 * Registering rk808 as rtc99 (most kernel configurations read time from rtc0) can prevent the kernel from reading the time (2013) from rk808 during startup.
+		 */
+		rtc99 = &rk808;
 	};
 
 	chosen {

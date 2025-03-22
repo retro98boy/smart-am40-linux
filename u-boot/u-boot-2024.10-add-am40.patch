@@ -94,10 +94,10 @@ index 00000000..d3ccdf6f
 +CONFIG_ERRNO_STR=y
 diff --git a/dts/upstream/src/arm64/rockchip/rk3399-am40.dts b/dts/upstream/src/arm64/rockchip/rk3399-am40.dts
 new file mode 100644
-index 00000000..2f8d1c6c
+index 00000000..490f5bd1
 --- /dev/null
 +++ b/dts/upstream/src/arm64/rockchip/rk3399-am40.dts
-@@ -0,0 +1,749 @@
+@@ -0,0 +1,754 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
 + * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd.
@@ -119,6 +119,11 @@ index 00000000..2f8d1c6c
 +		ethernet0 = &gmac;
 +		mmc0 = &sdhci;
 +		mmc1 = &sdmmc;
++		/*
++		 * The rk808 circuit design on this board does not have the ability to maintain real-time time after a power outage.
++		 * Registering rk808 as rtc99 (most kernel configurations read time from rtc0) can prevent the kernel from reading the time (2013) from rk808 during startup.
++		 */
++		rtc99 = &rk808;
 +	};
 +
 +	chosen {
