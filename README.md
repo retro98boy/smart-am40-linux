@@ -61,7 +61,9 @@ RK3399支持PCIe 2.1，但是主线内核中设备树默认限制到PCIe gen1的
 
 PS: 主线cdn DP驱动的工作需要名为dptx.bin的固件，应将其放在/lib/firmware/rockchip下。可在[armbian/firmware](https://github.com/armbian/firmware)下载该固件，Armbian系统镜像自带
 
-# 其它固件
+# 固件
+
+[Armbian](https://github.com/armbian/community/releases)
 
 [Batocera](https://github.com/retro98boy/batocera.linux)
 
