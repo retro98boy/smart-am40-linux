@@ -1,3 +1,11 @@
+# 固件
+
+[Armbian](https://github.com/armbian/community/releases)
+
+[Batocera](https://github.com/retro98boy/batocera.linux)
+
+[OpenWrt](https://github.com/retro98boy/openwrt)
+
 # SoC与存储
 
 SoC为RK3399
@@ -6,7 +14,7 @@ RAM为4GB的DDR3，频率是1600MHz，这点可以从原版系统启动日志中
 
 ![boot-log-ddr](pictures/boot-log-ddr.png)
 
-Maskrom模式下使用的loader文件在[这里](https://github.com/retro98boy/tn3399-v3-linux/blob/master/tools/rk3399_loader_v1.30.130.bin)
+Maskrom模式下使用的loader文件在[这里](https://github.com/retro98boy/tiannuo-tn3399-v3-linux/tree/main/tools)
 
 ROM为32GB的eMMC
 
@@ -16,11 +24,11 @@ ROM为32GB的eMMC
 
 # 主线U-Boot
 
-仓库提供主线U-Boot补丁，参考[此处](https://github.com/retro98boy/tn3399-v3-linux#%E7%BC%96%E8%AF%91%E4%B8%BB%E7%BA%BFu-boot)编译和使用
+在[armbian/build](https://github.com/armbian/build)搜索am40得到U-Boot补丁
 
 # 主线设备树
 
-仓库中的主线设备树搭配主线内核可以驱动除尾插HDMI的所有IO
+在[armbian/build](https://github.com/armbian/build)搜索am40得到主线内核dts，搭配主线内核可以驱动除尾插HDMI的所有IO
 
 # M.2 Key E接口
 
@@ -56,15 +64,10 @@ RK3399支持PCIe 2.1，但是主线内核中设备树默认限制到PCIe gen1的
 
 [该补丁](https://github.com/armbian/build/blob/main/patch/kernel/archive/rockchip64-6.12/general-add-miniDP-virtual-extcon.patch)可添加一个extcon驱动，通过检测GPIO，来告知RK3399的cdn-dp驱动什么时候输出DP信号，~~但是补丁目前有个Bug，`vpd->det_gpio = devm_gpiod_get_optional(dev, "det", GPIOD_OUT_LOW);`应为`vpd->det_gpio = devm_gpiod_get_optional(dev, "det", GPIOD_IN);`~~，Bug已修复，Armbian官方内核搭配本仓库设备树即可驱动前面板HDMI
 
-
 如果前面板HDMI无信号输出，手动`modprobe extcon-usbc-virtual-pd`即可，推荐将其添加到initramfs中，对于Armbian，只要在`/etc/initramfs-tools/modules`中添加一行`extcon-usbc-virtual-pd`，然后执行`update-initramfs -u`即可
 
 PS: 主线cdn DP驱动的工作需要名为dptx.bin的固件，应将其放在/lib/firmware/rockchip下。可在[armbian/firmware](https://github.com/armbian/firmware)下载该固件，Armbian系统镜像自带
 
-# 固件
+# 杂项
 
-[Armbian](https://github.com/armbian/community/releases)
-
-[Batocera](https://github.com/retro98boy/batocera.linux)
-
-[OpenWrt](https://github.com/retro98boy/openwrt)
+![rs485](pictures/rs485.png)
