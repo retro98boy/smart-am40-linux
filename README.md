@@ -1,6 +1,6 @@
 # 固件
 
-[Armbian](https://github.com/armbian/community/releases)
+[Armbian](https://github.com/armbian/community)
 
 [Batocera](https://github.com/retro98boy/batocera.linux)
 
@@ -24,11 +24,11 @@ ROM为32GB的eMMC
 
 # 主线U-Boot
 
-在[armbian/build](https://github.com/armbian/build)搜索am40得到U-Boot补丁
+在[armbian/build](https://github.com/armbian/build)仓库搜索smart-am40即可找到添加该设备支持的U-Boot补丁
 
 # 主线设备树
 
-在[armbian/build](https://github.com/armbian/build)搜索am40得到主线内核dts，搭配主线内核可以驱动除尾插HDMI的所有IO
+在[armbian/build](https://github.com/armbian/build)仓库搜索smart-am40即可找到该设备的主线内核dts，搭配主线内核可以驱动除尾插HDMI的所有IO
 
 # M.2 Key E接口
 
