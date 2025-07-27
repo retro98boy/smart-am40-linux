@@ -22,6 +22,10 @@ ROM为32GB的eMMC
 
 ![maskrom-short](pictures/maskrom-short.png)
 
+设备正面上方的USB Type-A用于在Maskrom模式下传输数据
+
+只有将主机左侧的拨码开关拨到SERVICE（右边），PC才能识别到Maskrom设备
+
 # 主线U-Boot
 
 在[armbian/build](https://github.com/armbian/build)仓库搜索smart-am40即可找到添加该设备支持的U-Boot补丁
@@ -67,6 +71,29 @@ RK3399支持PCIe 2.1，但是主线内核中设备树默认限制到PCIe gen1的
 如果前面板HDMI无信号输出，手动`modprobe extcon-usbc-virtual-pd`即可，推荐将其添加到initramfs中，对于Armbian，只要在`/etc/initramfs-tools/modules`中添加一行`extcon-usbc-virtual-pd`，然后执行`update-initramfs -u`即可
 
 PS: 主线cdn DP驱动的工作需要名为dptx.bin的固件，应将其放在/lib/firmware/rockchip下。可在[armbian/firmware](https://github.com/armbian/firmware)下载该固件，Armbian系统镜像自带
+
+# PHY LED
+
+该设备的RJ45接口上有三个LED，左边的绿灯（LED0），右边的绿灯（LED1）和红灯（LED2）
+
+可以使用[wkz/phytool](https://github.com/wkz/phytool)工具在用户空间来测试LED：
+
+```
+# link后LED0常量
+phytool write eth0/0/0x1f 0x0d04
+phytool write eth0/0/0x10 0x000b
+phytool write eth0/0/0x1f 0x0000
+
+# link后LED1常量
+phytool write eth0/0/0x1f 0x0d04
+phytool write eth0/0/0x10 0x0160
+phytool write eth0/0/0x1f 0x0000
+
+# link后LED2常量
+phytool write eth0/0/0x1f 0x0d04
+phytool write eth0/0/0x10 0x2c00
+phytool write eth0/0/0x1f 0x0000
+```
 
 # 杂项
 
