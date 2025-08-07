@@ -79,17 +79,17 @@ PS: 主线cdn DP驱动的工作需要名为dptx.bin的固件，应将其放在/l
 可以使用[wkz/phytool](https://github.com/wkz/phytool)工具在用户空间来测试LED：
 
 ```
-# link后LED0常量
+# link后LED0常亮
 phytool write eth0/0/0x1f 0x0d04
 phytool write eth0/0/0x10 0x000b
 phytool write eth0/0/0x1f 0x0000
 
-# link后LED1常量
+# link后LED1常亮
 phytool write eth0/0/0x1f 0x0d04
 phytool write eth0/0/0x10 0x0160
 phytool write eth0/0/0x1f 0x0000
 
-# link后LED2常量
+# link后LED2常亮
 phytool write eth0/0/0x1f 0x0d04
 phytool write eth0/0/0x10 0x2c00
 phytool write eth0/0/0x1f 0x0000
