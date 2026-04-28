@@ -1,6 +1,6 @@
 # 固件
 
-[Armbian](https://github.com/armbian/community)
+[Armbian](https://armbian.cn/boards/smart-am40)
 
 [Batocera](https://github.com/retro98boy/batocera.linux)
 
@@ -61,6 +61,15 @@ ROM为32GB的eMMC
 RK3399支持PCIe 2.1，但是主线内核中设备树默认限制到PCIe gen1的速度
 
 可在`&pcie0`节点中添加`max-link-speed = <2>;`开启PCIe gen2的速度，上述模块除去英特尔8265NGW在开启PCIe gen2速度支持时会卡开机，其余模块两种情况均能工作，测速无明显差别
+
+免编译dtb快速修改PCIe版本：
+
+```
+root@smart-am40:~# fdtget /boot/dtb/rockchip/rk3399-am40.dtb /pcie@f8000000 max-link-speed 1
+root@smart-am40:~# fdtput -t i /boot/dtb/rockchip/rk3399-am40.dtb /pcie@f8000000 max-link-speed 2
+root@smart-am40:~# fdtget /boot/dtb/rockchip/rk3399-am40.dtb /pcie@f8000000 max-link-speed 2
+root@smart-am40:~# reboot
+```
 
 # 视频输出
 
